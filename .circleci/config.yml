@@ -22,11 +22,18 @@ jobs:
       - run:
           name: "Build docker image and push to docker hub"
           command: |
-            cp Dockerfile.production Dockerfile
-            docker build -t vinboxx/demo2:latest .
-            docker build -t vinboxx/demo2:${CIRCLE_SHA1} .
-            docker push vinboxx/demo2:latest
-            docker push vinboxx/demo2:${CIRCLE_SHA1}
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              cp Dockerfile.production Dockerfile
+              docker build -t vinboxx/demo2:latest .
+              docker build -t vinboxx/demo2:${CIRCLE_SHA1} .
+              docker push vinboxx/demo2:latest
+              docker push vinboxx/demo2:${CIRCLE_SHA1}
+            elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+              docker build -t vinboxx/demo2_staging:latest .
+              docker push vinboxx/demo2_staging:latest
+            else
+              echo "This is ${CIRCLE_BRANCH}"
+            fi
       - run:
           name: "Call to Rancher to deploy"
           command: |
