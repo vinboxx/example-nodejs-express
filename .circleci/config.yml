@@ -20,11 +20,11 @@ jobs:
       - setup_remote_docker
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - run:
-        name: "Build docker image and push to docker hub"
-        command: |
-          cp Dockerfile.production Dockerfile
-          docker build -t vinboxx/demo2:latest .
-          docker build -t vinboxx/demo2:${CIRCLE_SHA1} .
-          docker push vinboxx/demo2:latest
-          docker push vinboxx/demo2:${CIRCLE_SHA1}
+          name: "Build docker image and push to docker hub"
+          command: |
+            cp Dockerfile.production Dockerfile
+            docker build -t vinboxx/demo2:latest .
+            docker build -t vinboxx/demo2:${CIRCLE_SHA1} .
+            docker push vinboxx/demo2:latest
+            docker push vinboxx/demo2:${CIRCLE_SHA1}
       - run: echo Done
