@@ -75,7 +75,7 @@ jobs:
       - run: echo Done
 workflows:
   versions: 2
-  build_ship_test_deploy:
+  build_test_ship_deploy:
     jobs:
       - build
       - test:
