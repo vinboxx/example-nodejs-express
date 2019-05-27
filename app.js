@@ -1,3 +1,13 @@
+// Add this to the VERY top of the first file loaded in your application
+var apm = require('elastic-apm-node').start({
+  // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
+  serviceName: 'main-api',
+  // Use if APM Server requires a token
+  secretToken: '',
+  // Set custom APM Server URL (default: http://localhost:8200)
+  serverUrl: 'http://apm:8200'
+});
+
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -9,16 +19,6 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-
-// Add this to the VERY top of the first file loaded in your application
-var apm = require('elastic-apm-node').start({
-  // Set required service name (allowed characters: a-z, A-Z, 0-9, -, _, and space)
-  serviceName: 'main-api',
-  // Use if APM Server requires a token
-  secretToken: '',
-  // Set custom APM Server URL (default: http://localhost:8200)
-  serverUrl: 'http://apm:8200'
-})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
